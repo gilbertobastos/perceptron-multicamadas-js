@@ -398,47 +398,43 @@ function Neuronio(qtdPesosNeuronio, bias, min, max)
  * Funções de ativação *
  ***********************/
 
-/** Objeto que irá armazenar as funções de ativação
+/** Módulo que irá armazenar as funções de ativação
  e derivada da rede. */
-var funcoesAtivacao = {};
+(function(exports) {
 
-funcoesAtivacao.degrau =
-    function(z) {
+    exports.degrau = function(z) {
 	return (z >= 0) ? 1 : 0;
     };
 
-funcoesAtivacao.derivadaDegrau =
-    function(valDegrau) {
+    exports.derivadaDegrau = function(valDegrau) {
 	return 1.0;
     };
 
-funcoesAtivacao.sigmoide =
-    function(z) {
+    exports.sigmoide = function(z) {
 	return 1.0 / ((1.0) + Math.exp(-z));
     };
 
-funcoesAtivacao.derivadaSigmoide =
-    function(valSig) {
+    exports.derivadaSigmoide = function(valSig) {
 	return valSig * (1.0 - valSig);
     };
 
-funcoesAtivacao.tangHiperbolica =
-    function(z) {
+    exports.tangHiperbolica = function(z) {
 	return Math.tanh(z);
     };
 
-funcoesAtivacao.derivadaTangHiperbolica =
-    function(valTangHiperbolica) {
+    exports.derivadaTangHiperbolica = function(valTangHiperbolica) {
 	return 1.0 - Math.pow(valTangHiperbolica, 2);
     };
+    
+})(this.funcoesAtivacao = {});
 
 /** Instanciando o Perceptron Multicamadas (2-2-1) e adicionando as
  camadas ao mesmo (de processamento e a camada de saída). */
 var pm = new PerceptronMulticamadas();
-pm.adicionarCamada(new Camada(2, 2, funcoesAtivacao.sigmoide,
-			      funcoesAtivacao.derivadaSigmoide));
-pm.adicionarCamada(new Camada(2, 1, funcoesAtivacao.sigmoide,
-			      funcoesAtivacao.derivadaSigmoide));
+pm.adicionarCamada(new Camada(2, 2, this.funcoesAtivacao.sigmoide,
+			      this.funcoesAtivacao.derivadaSigmoide));
+pm.adicionarCamada(new Camada(2, 1, this.funcoesAtivacao.sigmoide,
+			      this.funcoesAtivacao.derivadaSigmoide));
 
 /* Matriz para o treinamento da rede. */
 var matrizTreinamentoXOR = [
