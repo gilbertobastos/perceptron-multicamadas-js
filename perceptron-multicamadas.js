@@ -166,7 +166,7 @@ function Camada(qtdNeuroniosCamadaAnterior,
      camada. */
     for (var i = 0; i < qtdNeuroniosCamada; i++)
     {
-	this.neuronios.push(new Neuronio(qtdNeuroniosCamadaAnterior));
+	this.neuronios.push(new Neuronio(qtdNeuroniosCamadaAnterior, min, max));
     }
 }
 
@@ -445,9 +445,9 @@ var matrizTreinamentoXOR = [
 ];
 
 /* Realizando o treinamento da rede com a matriz acima, 
- até que o erro da mesma seja menor ou igual a 0.005, com
- taxa de aprendizagem 0.3. */
-pm.treinamentoBackProp(matrizTreinamentoXOR, 0.3, 0.001);
+ até que o erro da mesma seja menor ou igual a 0.001, com
+ taxa de aprendizagem 0.7. */
+pm.treinamentoBackProp(matrizTreinamentoXOR, 0.7, 0.001);
 
 /* Realizando a alimentação da rede e imprimindo o resultado. */
 console.log("\nResultados do treinamento (XOR):");
